@@ -103,6 +103,10 @@ function areThereDuplicates(...arr) {
   return false;
 }
 
+/*function areThereDuplicates(...arr) {
+  return new Set(arr).size == arr.length;
+}*/
+
 // console.log(areThereDuplicates(1, 2, 3)) // false
 // console.log(areThereDuplicates(1, 2, 2)) // true 
 // console.log(areThereDuplicates('a', 'b', 'c', 'a')) // true 
@@ -117,6 +121,22 @@ function findAllDuplicates(arr) {
   return result;
 }
 
-console.log(findAllDuplicates([4,3,2,7,8,2,3,1])) // false
-console.log(findAllDuplicates([4, 3, 2, 1, 0])) // true 
-console.log(findAllDuplicates([4, 3, 2, 1, 0, 1, 2, 3])) // true 
+// console.log(findAllDuplicates([4,3,2,7,8,2,3,1])) // false
+// console.log(findAllDuplicates([4, 3, 2, 1, 0])) // true 
+// console.log(findAllDuplicates([4, 3, 2, 1, 0, 1, 2, 3])) // true 
+
+function constructNote(str1,str2){
+  // add whatever parameters you deem necessary - good luck!
+  for(let val of str1){
+    if(str2.includes(val)) {
+      str2 = str2.replace(val,'')
+    }
+    else return false;
+  }
+  return true
+}
+
+console.log(constructNote('aa', 'abc'), // false
+constructNote('abc', 'dcba'), // true
+constructNote('aabbcc', 'bcabcaddff'), // true
+)
