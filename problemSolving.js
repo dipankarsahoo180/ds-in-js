@@ -157,9 +157,26 @@ function averagePair(arr, val){
   return false;
 }
 
-console.log(
-  averagePair([1,2,3],2.5), // true
-  averagePair([1,3,3,5,6,7,10,12,19],8), // true
-  averagePair([-1,0,3,4,5,6], 4.1), // false
-  averagePair([],4) // false
+// console.log(
+//   averagePair([1,2,3],2.5), // true
+//   averagePair([1,3,3,5,6,7,10,12,19],8), // true
+//   averagePair([-1,0,3,4,5,6], 4.1), // false
+//   averagePair([],4) // false
+// )
+
+function isSubsequence(str1,str2) {
+  let firstPointer=secondPointer=0;
+  while(secondPointer<str2.length){
+    console.log(str2[secondPointer],str1[firstPointer],firstPointer,secondPointer,str2[secondPointer] == str1[firstPointer]);
+    if(str2[secondPointer] == str1[firstPointer]) firstPointer++;
+    if(firstPointer === str1.length) return true;
+    secondPointer++;
+  }
+  return false;
+}
+
+console.log(isSubsequence('hello', 'hello world'), // true
+isSubsequence('sing', 'sting'), // true
+isSubsequence('abc', 'abracadabra'), // true
+isSubsequence('abc', 'acb'), // false (order matters)
 )
