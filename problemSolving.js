@@ -212,15 +212,39 @@ function findpairSorted(arr,n){
 //   findPair([0,1,3,4,6],-2) // true
 // )
 
+// console.log(
+//   findpairSorted([6,1,4,10,2,4]?.sort((a,b)=>a-b), 2), // true
+//   findpairSorted([8,6,2,4,1,0,2,5,13]?.sort((a,b)=>a-b),1) ,// true
+//   findpairSorted([4,-2,3,10]?.sort((a,b)=>a-b),-6), // true
+//   findpairSorted([6,1,4,10,2,4]?.sort((a,b)=>a-b), 22), // false
+//   findpairSorted([]?.sort((a,b)=>a-b), 0) ,// false
+//   findpairSorted([5,5]?.sort((a,b)=>a-b), 0), // true
+//   findpairSorted([-4,4]?.sort((a,b)=>a-b), -8), // true
+//   findpairSorted([-4,4]?.sort((a,b)=>a-b), 8), // true
+//   findpairSorted([1,3,4,6]?.sort((a,b)=>a-b),-2), // true
+//   findpairSorted([0,1,3,4,6]?.sort((a,b)=>a-b),-2) // true
+// )
+
+
+function maxSubarraySum(arr,num){
+  let maxSum = -Infinity;
+  let tempSum = 0;
+  if(arr.length<num) return null;
+  for(let i=0;i<num;i++){
+      tempSum+=arr[i]
+  }
+  for(let i=0;i<arr.length-num;i++){
+      tempSum = tempSum+arr[num+i]-arr[i];
+      maxSum = Math.max(tempSum,maxSum);
+  }
+  
+  return maxSum;
+}
+
 console.log(
-  findpairSorted([6,1,4,10,2,4]?.sort((a,b)=>a-b), 2), // true
-  findpairSorted([8,6,2,4,1,0,2,5,13]?.sort((a,b)=>a-b),1) ,// true
-  findpairSorted([4,-2,3,10]?.sort((a,b)=>a-b),-6), // true
-  findpairSorted([6,1,4,10,2,4]?.sort((a,b)=>a-b), 22), // false
-  findpairSorted([]?.sort((a,b)=>a-b), 0) ,// false
-  findpairSorted([5,5]?.sort((a,b)=>a-b), 0), // true
-  findpairSorted([-4,4]?.sort((a,b)=>a-b), -8), // true
-  findpairSorted([-4,4]?.sort((a,b)=>a-b), 8), // true
-  findpairSorted([1,3,4,6]?.sort((a,b)=>a-b),-2), // true
-  findpairSorted([0,1,3,4,6]?.sort((a,b)=>a-b),-2) // true
+maxSubarraySum([100,200,300,400], 2), // 700
+maxSubarraySum([1,4,2,10,23,3,1,0,20], 4),  // 39 
+maxSubarraySum([-3,4,0,-2,6,-1], 2), // 5
+maxSubarraySum([3,-2,7,-4,1,-1,4,-2,1],2), // 5
+maxSubarraySum([2,3], 3), // null
 )
