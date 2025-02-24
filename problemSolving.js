@@ -167,7 +167,7 @@ function averagePair(arr, val){
 function isSubsequence(str1,str2) {
   let firstPointer=secondPointer=0;
   while(secondPointer<str2.length){
-    console.log(str2[secondPointer],str1[firstPointer],firstPointer,secondPointer,str2[secondPointer] == str1[firstPointer]);
+    //console.log(str2[secondPointer],str1[firstPointer],firstPointer,secondPointer,str2[secondPointer] == str1[firstPointer]);
     if(str2[secondPointer] == str1[firstPointer]) firstPointer++;
     if(firstPointer === str1.length) return true;
     secondPointer++;
@@ -175,8 +175,52 @@ function isSubsequence(str1,str2) {
   return false;
 }
 
-console.log(isSubsequence('hello', 'hello world'), // true
-isSubsequence('sing', 'sting'), // true
-isSubsequence('abc', 'abracadabra'), // true
-isSubsequence('abc', 'acb'), // false (order matters)
+// console.log(isSubsequence('hello', 'hello world'), // true
+// isSubsequence('sing', 'sting'), // true
+// isSubsequence('abc', 'abracadabra'), // true
+// isSubsequence('abc', 'acb'), // false (order matters)
+// )
+
+function findPair(arr,val){
+  for(let val1=0;val1<arr.length;val1++){
+    for(let val2=val1+1;val2<arr.length;val2++){
+      if(arr[val1]-arr[val2] == val || arr[val2]-arr[val1] == val) return true
+    }
+  }  
+  return false;
+}
+
+function findpairSorted(arr,n){
+  var s = new Set(arr.map((e) => Math.abs(e - n)));
+  console.log(s,arr);
+  if (n === 0 && s.size === arr.length) return false;
+  for (let i = 0; i < arr.length; i++) {
+    if (s.has(arr[i])) return true;
+  }
+  return false;
+}
+// console.log(
+//   findPair([6,1,4,10,2,4], 2), // true
+//   findPair([8,6,2,4,1,0,2,5,13],1) ,// true
+//   findPair([4,-2,3,10],-6), // true
+//   findPair([6,1,4,10,2,4], 22), // false
+//   findPair([], 0) ,// false
+//   findPair([5,5], 0), // true
+//   findPair([-4,4], -8), // true
+//   findPair([-4,4], 8), // true
+//   findPair([1,3,4,6],-2), // true
+//   findPair([0,1,3,4,6],-2) // true
+// )
+
+console.log(
+  findpairSorted([6,1,4,10,2,4]?.sort((a,b)=>a-b), 2), // true
+  findpairSorted([8,6,2,4,1,0,2,5,13]?.sort((a,b)=>a-b),1) ,// true
+  findpairSorted([4,-2,3,10]?.sort((a,b)=>a-b),-6), // true
+  findpairSorted([6,1,4,10,2,4]?.sort((a,b)=>a-b), 22), // false
+  findpairSorted([]?.sort((a,b)=>a-b), 0) ,// false
+  findpairSorted([5,5]?.sort((a,b)=>a-b), 0), // true
+  findpairSorted([-4,4]?.sort((a,b)=>a-b), -8), // true
+  findpairSorted([-4,4]?.sort((a,b)=>a-b), 8), // true
+  findpairSorted([1,3,4,6]?.sort((a,b)=>a-b),-2), // true
+  findpairSorted([0,1,3,4,6]?.sort((a,b)=>a-b),-2) // true
 )
