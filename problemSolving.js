@@ -103,6 +103,20 @@ function areThereDuplicates(...arr) {
   return false;
 }
 
-console.log(areThereDuplicates(1, 2, 3)) // false
-console.log(areThereDuplicates(1, 2, 2)) // true 
-console.log(areThereDuplicates('a', 'b', 'c', 'a')) // true 
+// console.log(areThereDuplicates(1, 2, 3)) // false
+// console.log(areThereDuplicates(1, 2, 2)) // true 
+// console.log(areThereDuplicates('a', 'b', 'c', 'a')) // true 
+
+
+function findAllDuplicates(arr) {
+  let countObj = {}; const result = [];
+  for(let val of arr){
+    countObj[val] = (countObj[val] || 0) +1
+    if(countObj[val]>1) result.splice(0,0,val);
+  }
+  return result;
+}
+
+console.log(findAllDuplicates([4,3,2,7,8,2,3,1])) // false
+console.log(findAllDuplicates([4, 3, 2, 1, 0])) // true 
+console.log(findAllDuplicates([4, 3, 2, 1, 0, 1, 2, 3])) // true 
