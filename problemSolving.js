@@ -355,10 +355,32 @@ function findFirstZero(arr,start,end,mid){
   }
 }
 
+// console.log(
+//   countZeroes([1,1,1,1,0,0]), // 2
+//   countZeroes([1,0,0,0,0]), // 4
+//   countZeroes([0,0,0]), // 3
+//   countZeroes([1,1,1,1]), // 0,
+//   countZeroes([1, 1, 1, 0,0]) //2,
+// )
+
+
+function sortedFrequency(arr,num){
+  let start = Infinity;let end =0;
+  for(let i=0;i<arr.length;i++){
+      if(arr[i] ==num && i<start){
+          start = i;
+      }
+      if(arr[i] ===num && i>end){
+          end = i;
+      }
+  }
+  return end===0 && start== Infinity?-1:end-start+1
+}
+
+
 console.log(
-  countZeroes([1,1,1,1,0,0]), // 2
-  countZeroes([1,0,0,0,0]), // 4
-  countZeroes([0,0,0]), // 3
-  countZeroes([1,1,1,1]), // 0,
-  countZeroes([1, 1, 1, 0,0]) //2,
+  sortedFrequency([1,1,2,2,2,2,3],2), // 4 
+  sortedFrequency([1,1,2,2,2,2,3],3), // 1 
+  sortedFrequency([1,1,2,2,2,2,3],1), // 2 
+  sortedFrequency([1,1,2,2,2,2,3],4), // -1
 )
