@@ -325,12 +325,40 @@ function findLongestSubstringOptimal(str) {
   return longest;
 }
 
+// console.log(
+//   findLongestSubstringOptimal(''), // 0
+//   findLongestSubstringOptimal('rithmschool'), // 7
+//   findLongestSubstringOptimal('thisisawesome'), // 6
+//   findLongestSubstringOptimal('thecatinthehat'), // 7
+//   findLongestSubstringOptimal('bbbbbb'), // 1
+//   findLongestSubstringOptimal('longestsubstring'), // 8
+//   findLongestSubstringOptimal('thisishowwedoit'), // 6
+// )
+
+function countZeroes(arr){
+  let start=0;let end=arr.length-1;let mid = Math.floor((start+end)/2);
+  const idx = findFirstZero(arr,start,end,mid);
+  return arr.length-idx;
+}
+
+function findFirstZero(arr,start,end,mid){
+  if(arr[end]===1){
+    return arr.length;
+  }else if (arr[0]===0){
+    return 0;
+  }else if(arr[mid-1] === 0){
+    return findFirstZero(arr,start,mid,Math.floor((start+mid)/2))
+  }else if(arr[mid]===0){
+      return mid;
+  }else{
+      return findFirstZero(arr,mid+1,end,Math.floor((mid+end+1)/2))
+  }
+}
+
 console.log(
-  findLongestSubstringOptimal(''), // 0
-  findLongestSubstringOptimal('rithmschool'), // 7
-  findLongestSubstringOptimal('thisisawesome'), // 6
-  findLongestSubstringOptimal('thecatinthehat'), // 7
-  findLongestSubstringOptimal('bbbbbb'), // 1
-  findLongestSubstringOptimal('longestsubstring'), // 8
-  findLongestSubstringOptimal('thisishowwedoit'), // 6
+  countZeroes([1,1,1,1,0,0]), // 2
+  countZeroes([1,0,0,0,0]), // 4
+  countZeroes([0,0,0]), // 3
+  countZeroes([1,1,1,1]), // 0,
+  countZeroes([1, 1, 1, 0,0]) //2,
 )
