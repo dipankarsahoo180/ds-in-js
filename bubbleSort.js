@@ -19,14 +19,14 @@ const bubbleSort = (arr) => {
 
 
 function bubbleSortWithComparator(arr, comparator) {
+    if(typeof comparator !== 'function'){
+        comparator = function(a, b) {
+            return a - b;
+        }
+    }
     for(let i=0;i<arr.length;i++){
-        for(let j=0;j<arr.length-i;j++){
-            if (typeof comparator !== 'function'){
-                if((arr[j]>arr[j+1])){
-                    [arr[j],arr[j+1]] = [ arr[j+1],arr[j]]
-                }
-            }
-            else if(comparator(arr[j],arr[j+1])>0){
+        for(let j=0;j<arr.length-1-i;j++){
+            if(comparator(arr[j],arr[j+1])>0){
                 [arr[j],arr[j+1]] = [ arr[j+1],arr[j]]
             }
         }
@@ -44,3 +44,26 @@ console.log(
     bubbleSort([1,56,23,2,3,3,4,6,1,1,2,3,4]),
     bubbleSort([4])
 )
+
+var moarKittyData = [{
+    name: "LilBub",
+    age: 7
+  }, {
+    name: "Garfield",
+    age: 40
+  }, {
+    name: "Heathcliff",
+    age: 45
+  }, {
+    name: "Blue",
+    age: 1
+  }, {
+    name: "Grumpy",
+    age: 6
+  }];
+   
+  function oldestToYoungest(a, b) {
+    return b.age - a.age;
+  }
+   
+  console.log(bubbleSortWithComparator(moarKittyData, oldestToYoungest)); // sorted by age in descending order
