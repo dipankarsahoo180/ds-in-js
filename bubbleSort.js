@@ -11,15 +11,36 @@ const bubbleSort = (arr) => {
                 noSwaps = false;
             } 
         }
-        console.log(i,noSwaps)
+        // console.log(i,noSwaps)
         if(noSwaps) break;
     }
     return arr;
 }
 
+
+function bubbleSortWithComparator(arr, comparator) {
+    for(let i=0;i<arr.length;i++){
+        for(let j=0;j<arr.length-i;j++){
+            if (typeof comparator !== 'function'){
+                if((arr[j]>arr[j+1])){
+                    [arr[j],arr[j+1]] = [ arr[j+1],arr[j]]
+                }
+            }
+            else if(comparator(arr[j],arr[j+1])>0){
+                [arr[j],arr[j+1]] = [ arr[j+1],arr[j]]
+            }
+        }
+    }
+    return arr;
+}
+
+const comparator = (a,b)=>{
+    return a-b
+}
+
 console.log(
-    bubbleSort([3,4,6,1,1,2,3,4]),
-    bubbleSort([3,4,6,12,8,1,2,3,4]),
+    bubbleSortWithComparator([3,4,6,1,1,2,3,4],comparator),
+    bubbleSortWithComparator([3,4,6,12,8,1,2,3,4]),
     bubbleSort([1,56,23,2,3,3,4,6,1,1,2,3,4]),
     bubbleSort([4])
 )
