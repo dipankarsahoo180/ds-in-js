@@ -21,44 +21,61 @@ const getmaxDigit = (arr) => {
     return maxDigit; // Return the maximum digit count found
 }
 
-//only for positive numbers
 // Main function to perform Radix Sort on an array
-function radixSort(arr, comparator) {
+function radixSort(arr) {
     // Get the maximum number of digits in the array
     let maxDigitCount = getmaxDigit(arr);
     
     // Loop through each digit position (from least significant to most significant)
     for (let k = 0; k < maxDigitCount; k++) {
-        // Create an array of buckets for each digit (0-9)
-        let digitbuckets = Array.from({ length: 10 }, () => []); // Create 10 empty buckets
+        // Create an array of buckets for each digit (0-9) for positive and negative numbers
+        let digitBuckets = {};
+        const data = [];
         
+        // Initialize buckets for negative and positive digits
+        for (let i = -9; i < 10; i++) {
+            digitBuckets[i] = [];
+        }
+
         // Place each number in the appropriate bucket based on the current digit
         for (let num of arr) {
-            // Get the digit at position k and push the number into the corresponding bucket
-            digitbuckets[getDigit(num, k)].push(num);
+            if (num < 0) {
+                // For negative numbers, we use -1 to -9 as buckets
+                digitBuckets[-getDigit(num, k)].push(num);
+            } else {
+                // For positive numbers, we use 0 to 9 as buckets
+                digitBuckets[getDigit(num, k)].push(num);
+            }
         }
         
         // Flatten the buckets back into the array
-        arr = [].concat(...digitbuckets);
+        // First, add negative numbers and then +ve numbers
+        for (let i = -9; i <10; i++) {
+            data.push(...digitBuckets[i]);
+        }
+
+        arr = data; // Update the array with the newly sorted data
     }
     return arr; // Return the sorted array
 }
 
 // Example usage
-const numbers = [170, 45, 75, 90, 802, 24, 2, 66];
-console.log(radixSort(numbers)); // Output: [2, 24, 45, 66, 75, 90, 170, 802]
+const numbers = [170, -45, 75, 90, -802, 24, 2, -66,-802,0];
+console.log(radixSort(numbers)); // Output: (10) [-802, -802, -66, -45, 0, 2, 24, 75, 90, 170]
 
 
-// Perform quicksort on various arrays of numbers and log the results
 console.log(
-    radixSort([3, 4, 6, 1, 1, 2, 3, 4, 7]), // Sorts the array of numbers
-    radixSort([3, 4, 6, 12, 8, 1, 2, 13, 34]), // Sorts another array of numbers
-    radixSort([1, 56, 23, 2, 3, 3, 4, 6, 1, 1, 2, 3, 4]), // Sorts yet another array
-    radixSort([4]) // Sorts a single-element array (should return [4])
+    radixSort([-3, 4, 6, 1, -10, 2, 3, 4, -7]),
+    radixSort([3, 4, 6, 12, 8, 1, 2, 13, 34]),
+    radixSort([1, 56, 23, 2, 3, 3, 4, 6, 1, 1, 2, 3, 4]),
+    radixSort([4]),
+    radixSort([1.3,3434350989,34878905,21.3,23])
 );
-console.log(radixSort([1.3,3434350989,34878905,213,23]));
 
-// console.log(...[[1.3,3434350989,34878905,213,23],[1, 56, 23, 2, 3, 3, 4, 6, 1, 1, 2, 3, 4]])
-// console.log([].concat(...[1.3,3434350989,34878905,213,23,[1,2,34]]))
+
+
+console.log(...[[1.3,3434350989,34878905,213,23],[1, 56, 23, 2, 3, 3, 4, 6, 1, 1, 2, 3, 4]])
+console.log([].concat(...[1.3,3434350989,34878905,213,23,[1,2,34,[1,2,3,[1.2,3]]]]))
 console.log(...[[1.3,3434350989,34878905,213,23,[1,2,34]],[1, 56, 23, 2, 3, 3, 4, 6, 1, 1, 2, 3, 4]])
 console.log([].concat(...[[1.3,3434350989,34878905,213,23,[1,2,34]],[1, 56, 23, 2, 3, 3, 4, 6, 1, 1, 2, 3, 4]]))
+console.log(getDigit(-80981,2))
