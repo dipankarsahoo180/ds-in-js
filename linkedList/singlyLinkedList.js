@@ -101,7 +101,7 @@ class SinglyLinkedList {
 
   //adding value to the beginning of the linked list
   unshift(value){
-    if(this.length<=1) this.push();
+    if(this.length<1) this.push();
     else{
         let newNode = new Node(value);
         newNode.next = this.head;
@@ -162,21 +162,21 @@ class SinglyLinkedList {
 
 let obj = new SinglyLinkedList();
 obj.push("Hey!!");
-obj.push("Hi");
-obj.push("Dipankar");
-obj.push("Sahoo");
-obj.insert("lizu", 3);
+// obj.push("Hi");
+// obj.push("Dipankar");
+// obj.push("Sahoo");
+// obj.insert("lizu", 3);
 obj.unshift('Ohh..');
-console.log(obj);
-obj.traverse();
-obj.reverse();
-console.log('---------')
-obj.traverse();
-obj.remove(5);
-console.log(obj.pop());
-console.log(obj.pop());
-console.log(obj.pop());
-obj.reverse()
+// console.log(obj);
+// obj.traverse();
+// obj.reverse();
+// console.log('---------')
+// obj.traverse();
+// obj.remove(5);
+// console.log(obj.pop());
+// console.log(obj.pop());
+// console.log(obj.pop());
+// obj.reverse()
 obj.traverse();
 obj.set('sahooo update',2);
 console.log(obj.head, obj.tail,obj.get(2));
