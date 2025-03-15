@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class SinglyLinkedList {
+export class SinglyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -33,13 +33,13 @@ class SinglyLinkedList {
       return current;
     } else {
       let current = this.head;
-      let tail = current;
+      let prev = current;
       while (current.next != null) {
-        tail = current;
+        prev = current;
         current = current.next;
       }
-      this.tail = tail;
-      this.tail.next = null;
+      this.tail = prev;
+      this.tail.next = null; //detach current tail
       this.length--;
       return current; //return tail of the linkedlist before disconnecting
     }
@@ -47,11 +47,13 @@ class SinglyLinkedList {
 
   //traverse throught the nodes of linked list
   traverse() {
-    let current = this.head;
-    while (current) {
-      console.log(current.value, "=>", current.next?.value || null);
-      current = current.next; //go to next
+    let value = "";
+    let currentNode = this.head;
+    while (currentNode != null) {
+      value += "=> " + currentNode.value;
+      currentNode = currentNode.next;
     }
+    console.log(this.length + " " + value);
   }
 
   //insert at particular position
@@ -100,73 +102,75 @@ class SinglyLinkedList {
   }
 
   //adding value to the beginning of the linked list
-  unshift(value){
-    if(this.length<1) this.push();
-    else{
-        let newNode = new Node(value);
-        newNode.next = this.head;
-        this.head = newNode;
-        this.length++;
+  unshift(value) {
+    if (this.length < 1) this.push();
+    else {
+      let newNode = new Node(value);
+      newNode.next = this.head;
+      this.head = newNode;
+      this.length++;
     }
   }
-  
+
   //reverse the linked list
-  reverse(){
-    if(this.length<=1) return this.head;
-    else{
-        let prev = null;
-        let next = null;
-        let current = this.head;
-        this.head = this.tail;
-        this.tail = current;
-        while(current!=null){
-            //store next
-            next = current.next
-            current.next = prev;
-            prev  = current;
-            current = next
-        }
-        return this;
+  reverse() {
+    if (this.length <= 1) return this.head;
+    else {
+      let prev = null;
+      let next = null;
+      let current = this.head;
+      this.head = this.tail;
+      this.tail = current;
+      while (current != null) {
+        //store next
+        next = current.next;
+        //point previous node to next of current node
+        current.next = prev;
+        //store the current value in prev to set it for next node
+        prev = current;
+        current = next;
+      }
+      return this;
     }
-}
-    //get element at particular position
-    get(position){
-        let current = this.head;
-        let currentPosition = 1;
-        if(this.length <=1) return this.head;
-        else if(position<=this.length){
-            while(position!=currentPosition){
-                current = current.next;
-                currentPosition++;
-            }
-            return current;
-        }else {
-            return null;
-        }
-    }
+  }
 
-    //set value at particular position
-    set(value,position){
-        if(position<=this.length){
-            let node = this.get(position);
-            if(node){
-                node.value = value;
-                return true;
-            }else 
-                return false;
-        }else{
-            return false;
-        }
+  //get element at particular position
+  get(position) {
+    let current = this.head;
+    let currentPosition = 1;
+    if (this.length <= 1) return this.head;
+    else if (position <= this.length) {
+      while (position != currentPosition) {
+        current = current.next;
+        currentPosition++;
+      }
+      return current;
+    } else {
+      return null;
     }
-}
+  }
 
-let obj = new SinglyLinkedList();
-obj.push("Hey!!");
+  //set value at particular position
+  set(value, position) {
+    if (position <= this.length) {
+      let node = this.get(position);
+      if (node) {
+        node.value = value;
+        return true;
+      } else return false;
+    } else {
+      return false;
+    }
+  }
+}
+// console.log("Linked List");
+// let obj = new SinglyLinkedList();
+// obj.push("Hey!!");
 // obj.push("Hi");
 // obj.push("Dipankar");
 // obj.push("Sahoo");
 // obj.insert("lizu", 3);
-obj.unshift('Ohh..');
+// obj.unshift("Ohh..");
 // console.log(obj);
 // obj.traverse();
 // obj.reverse();
@@ -177,6 +181,6 @@ obj.unshift('Ohh..');
 // console.log(obj.pop());
 // console.log(obj.pop());
 // obj.reverse()
-obj.traverse();
-obj.set('sahooo update',2);
-console.log(obj.head, obj.tail,obj.get(2));
+// obj.traverse();
+// obj.set('sahooo update',2);
+// console.log(obj.head, obj.tail,obj.get(2));
