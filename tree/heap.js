@@ -29,7 +29,7 @@ class Heap{
         //check if 2x+1 > length-1,
         // array compare limit reached, then nothing to swap
         //so enter loop only if length is more than 2,else case is handled above
-        while (this.data.length>2*idx+2) {
+        while (this.data.length-1 > 2*idx) {
             //if value is already greater, do nothing
             if(this.data[idx]> Math.max(this.data[(2*idx)+1],this.data[(2*idx)+2])) 
             break;
@@ -50,24 +50,16 @@ class Heap{
 }
 
 let heap = new Heap();
+console.log(heap.insert(50));
 console.log(heap.insert(30));
 console.log(heap.insert(20));
-console.log(heap.insert(25));
-console.log(heap.insert(19));
-console.log(heap.insert(17));
-console.log(heap.insert(18));
-console.log(heap.insert(16));
-console.log(heap.insert(31));
+console.log(heap.insert(10));
+console.log(heap.insert(5));
 console.log(heap.extractMax());
 console.log(heap.extractMax());
 console.log(heap.extractMax());
 console.log(heap.extractMax());
 console.log(heap.extractMax());
-console.log(heap.extractMax());
-console.log(heap.extractMax());
-console.log(heap.extractMax());
-
-
 let heap1 = new Heap();
 console.log(heap1.insert(41));
 console.log(heap1.insert(39));

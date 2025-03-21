@@ -37,7 +37,7 @@ class PriorityQueue{
         //check if 2x+1 > length-1,
         // array compare limit reached, then nothing to swap
         //so enter loop only if length is more than 2,else case is handled above
-        while (this.data.length>2*idx+2) {
+        while (this.data.length-1>2*idx) {
             //if priority is already min, do nothing
             if(this.data[idx].priority< Math.min(this.data[(2*idx)+1].priority,this.data[(2*idx)+2].priority)) 
             break;
