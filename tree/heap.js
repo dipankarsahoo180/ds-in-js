@@ -31,11 +31,14 @@ class Heap{
         //so enter loop only if length is more than 2,else case is handled above
         while (this.data.length-1 > 2*idx) {
             //if value is already greater, do nothing
-            if(this.data[idx]> Math.max(this.data[(2*idx)+1],this.data[(2*idx)+2])) 
+            if(this.data[idx]> 
+                Math.max(
+                    this.data[(2*idx)+1],
+                    (this.data.length>2*idx+2? this.data[(2*idx)+2]:-Infinity)) )
             break;
 
             //if 2x+2 is greater than 2x+1 set child to 2x2 for swap with current
-            if(this.data[(2*idx)+2]>this.data[(2*idx)+1]) 
+            if( this.data[(2*idx)+2] && this.data[(2*idx)+2]>this.data[(2*idx)+1]) 
                 child = (2*idx)+2;
             //else swap with 2x+1
             else child = (2*idx)+1;
