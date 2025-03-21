@@ -39,7 +39,7 @@ class PriorityQueue{
         //so enter loop only if length is more than 2,else case is handled above
         while (this.data.length>2*idx+2) {
             //if priority is already min, do nothing
-            if(this.data[idx].priority< Math.min(this.data[(2*idx)+1].priority,this.data[(2*idx)+1].priority)) 
+            if(this.data[idx].priority< Math.min(this.data[(2*idx)+1].priority,this.data[(2*idx)+2].priority)) 
             break;
 
             //if 2x+2's priority is less than 2x+1's prioirty 
