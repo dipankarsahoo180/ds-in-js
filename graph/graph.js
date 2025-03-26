@@ -42,20 +42,41 @@ class BidirectionalGraph{
 
         }
     }
+
+    //traverse in one direction to end and then come back
+    depthFirstTraversal(start){
+        const result = []; //to list the values into the array
+        const visited = {}; //to check if the node is visited or not
+
+        const dfs = (vertex) => {
+            if(!vertex) return null;
+            //push value into result and mark visited
+            result.push(vertex);
+            visited[vertex] = true;
+            //recursive call for each neighbour 
+            // if they are not yet visited 
+            this.adjacencyList[vertex]?.forEach(neighbour => {
+                if(!visited[neighbour])
+                    return dfs(neighbour)
+            });
+        }
+        dfs(start);
+        return result;
+    }
 }
 
-let g = new BidirectionalGraph();
-g.addVertex("Dallas");
-g.addVertex("Tokyo");
-g.addVertex("Aspen");
-g.addVertex("Los Angeles");
-g.addVertex("Hong Kong")
-g.addEdge("Dallas", "Tokyo");
-g.addEdge("Dallas", "Aspen");
-g.addEdge("Hong Kong", "Tokyo");
-g.addEdge("Hong Kong", "Dallas");
-g.addEdge("Los Angeles", "Hong Kong");
-g.addEdge("Los Angeles", "Aspen");
+let g1 = new BidirectionalGraph();
+g1.addVertex("Dallas");
+g1.addVertex("Tokyo");
+g1.addVertex("Aspen");
+g1.addVertex("Los Angeles");
+g1.addVertex("Hong Kong")
+g1.addEdge("Dallas", "Tokyo");
+g1.addEdge("Dallas", "Aspen");
+g1.addEdge("Hong Kong", "Tokyo");
+g1.addEdge("Hong Kong", "Dallas");
+g1.addEdge("Los Angeles", "Hong Kong");
+g1.addEdge("Los Angeles", "Aspen");
 
 /**
  * {
@@ -86,6 +107,26 @@ g.addEdge("Los Angeles", "Aspen");
 }
  */
 
-g.removeEdge('Tokyo','Hong Kong');
-g.removeVertex('Dallas');
-console.log(g);
+g1.removeEdge('Tokyo','Hong Kong');
+g1.removeVertex('Dallas');
+console.log(g1);
+console.log(g1.depthFirstTraversal('Aspen'));
+
+let g2 = new BidirectionalGraph();
+
+g2.addVertex("A")
+g2.addVertex("B")
+g2.addVertex("C")
+g2.addVertex("D")
+g2.addVertex("E")
+g2.addVertex("F")
+
+
+g2.addEdge("A", "B")
+g2.addEdge("A", "C")
+g2.addEdge("B","D")
+g2.addEdge("C","E")
+g2.addEdge("D","E")
+g2.addEdge("D","F")
+g2.addEdge("E","F")
+console.log(g2.depthFirstTraversal("A"));
