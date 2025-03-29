@@ -44,12 +44,12 @@ class BidirectionalGraph{
     }
 
     //traverse in one direction to end and then come back
-    depthFirstTraversal(start){
+    depthFirstTraversalRecursive(start){
         const result = []; //to list the values into the array
         const visited = {}; //to check if the node is visited or not
 
         const dfs = (vertex) => {
-            if(!vertex) return null;
+            //if(!vertex) return result; //no need of base case
             //push value into result and mark visited
             result.push(vertex);
             visited[vertex] = true;
@@ -59,11 +59,95 @@ class BidirectionalGraph{
                 if(!visited[neighbour])
                     return dfs(neighbour)
             });
+            return result;
         }
-        dfs(start);
+        return dfs(start,result);
+    }
+
+    depthFirstTraversalIterative(start){
+        const result = [];
+        const visited = {};
+        let stack = [];
+        let currentVertex;
+
+        stack.push(start);
+        visited[start] = true;
+        
+        while(stack.length){
+            currentVertex = stack.pop();
+            result.push(currentVertex);
+            
+            this.adjacencyList[currentVertex]?.forEach(neighbour=>{
+                if(!visited[neighbour]){
+                    visited[neighbour] = true;
+                    stack.push(neighbour);
+                }
+            })
+        }
         return result;
     }
+
+    breadthFirstSearchIterative(start){
+        const result=[];
+        const visited = {};
+        const queue = [];
+        queue.push(start);
+        visited[start] = true;
+        let currentVertex = start;
+        while(queue.length){
+            currentVertex = queue.shift();
+            result.push(currentVertex);
+            this.adjacencyList[currentVertex]?.forEach(neighbour=>{
+                if(!visited[neighbour]){
+                    queue.push(neighbour);
+                    visited[neighbour] = true;
+                }
+            })
+        }
+        return result;
+    }
+    // To call this function:
+    breadthFirstSearchRecursive(start) {
+        const result = [];
+        const visited = {};
+        const queue = [start];
+        visited[start] = true;
+        return this.breadthFirstSearch(queue, visited, result);
+    }
+
+    breadthFirstSearch = (queue, visited, result)=> {
+        if (queue.length === 0) return result;
+        //remove the element from queue and push it to result;
+        let currentVertex = queue.shift();
+        result.push(currentVertex);
+    
+        this.adjacencyList[currentVertex]?.forEach(neighbour => {
+            if (!visited[neighbour]) {
+                queue.push(neighbour); //add to queue and mark visited
+                visited[neighbour] = true;
+            }
+        });
+        return this.breadthFirstSearch(queue, visited, result);
+    }
 }
+
+// Create a graph
+const graph = new BidirectionalGraph();
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+
+graph.addEdge("A", "B");
+graph.addEdge("A", "C");
+graph.addEdge("B", "D");
+graph.addEdge("C", "E");
+
+// Run DFS
+console.log(graph.depthFirstTraversalRecursive("A")); 
+
+
 
 let g1 = new BidirectionalGraph();
 g1.addVertex("Dallas");
@@ -109,8 +193,11 @@ g1.addEdge("Los Angeles", "Aspen");
 
 g1.removeEdge('Tokyo','Hong Kong');
 g1.removeVertex('Dallas');
-console.log(g1);
-console.log(g1.depthFirstTraversal('Aspen'));
+// console.log(g1);
+console.log(g1.depthFirstTraversalRecursive('Aspen'));
+console.log(g1.depthFirstTraversalIterative('Aspen'));
+console.log(g1.breadthFirstSearchIterative('Aspen'));
+console.log(g1.breadthFirstSearchRecursive('Aspen'));
 
 let g2 = new BidirectionalGraph();
 
@@ -129,4 +216,7 @@ g2.addEdge("C","E")
 g2.addEdge("D","E")
 g2.addEdge("D","F")
 g2.addEdge("E","F")
-console.log(g2.depthFirstTraversal("A"));
+console.log(g2.depthFirstTraversalRecursive("A"));
+console.log(g2.depthFirstTraversalIterative("A"));
+console.log(g2.breadthFirstSearchIterative("A"));
+console.log(g2.breadthFirstSearchRecursive("A"));
