@@ -1,3 +1,4 @@
+/**
 //static and instance in classes
 class Car {
   static totalCars = 0; // Static variable
@@ -120,3 +121,33 @@ class User1 {
 Object.assign(User1.prototype, logMixin1, eventMixin1);
 let user1 = new User1("Lizu", "checkpoint event");
 console.log(user1.log(), user1.event());
+*/
+
+let time;
+const myCustomFunction = (cb1,cb2,delay,...args) => {
+  console.log(...args)
+  clearTimeout(time);//debounce
+  time = setTimeout(() => {
+    cb1(...args); // Pass all collected arguments to the callback
+    cb2(...args)
+  }, delay);
+}
+
+
+// Debounce function
+function debounce(cb1,cb2, delay,...args) {
+  return myCustomFunction(cb1,cb2,delay,...args);
+}
+
+// Function that takes multiple arguments
+function logUserAction(action, timestamp) {
+  console.log(`Action: ${action}, Time: ${timestamp}`);
+}
+// Function that takes multiple arguments
+function logUserAction2(action, timestamp,...args) {
+  console.log(`Action: ${action}, Time: ${timestamp} ${args}`);
+}
+
+// Create debounced version
+const timeNow = new Date().toLocaleTimeString('en-CA');
+debounce(logUserAction,logUserAction2, 5000,"Btn-Click", timeNow,"Dipankar","abc",'def');
